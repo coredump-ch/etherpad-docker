@@ -1,28 +1,31 @@
-# Etherpad-Lite Dockerfile
-#
-# https://github.com/ether/etherpad-docker
-#
-# Developed from a version by Evan Hazlett at https://github.com/arcus-io/docker-etherpad 
-#
-# Version 1.0
+FROM node:6
+MAINTAINER Danilo Bargen <mail@dbrgn.ch>
 
-# Use Docker's nodejs, which is based on ubuntu
-FROM node:latest
-MAINTAINER John E. Arnold, iohannes.eduardus.arnold@gmail.com
+ENV ETHERPAD_VERSION 1.6.0
 
 # Get Etherpad-lite's other dependencies
-RUN apt-get update
-RUN apt-get install -y gzip git-core curl python libssl-dev pkg-config build-essential supervisor
+RUN apt-get update && \
+    apt-get install -y gzip unzip git-core curl python libssl-dev pkg-config build-essential supervisor && \
+    rm -r /var/lib/apt/lists/*
 
-# Grab the latest Git version
-RUN cd /opt && git clone https://github.com/ether/etherpad-lite.git etherpad
+# Set work dir
+WORKDIR /opt
 
-# Install node dependencies
-RUN /opt/etherpad/bin/installDeps.sh
+# Grab the desired version
+RUN curl -SL \
+    https://github.com/ether/etherpad-lite/archive/${ETHERPAD_VERSION}.zip \
+    > etherpad.zip && unzip etherpad && rm etherpad.zip && \
+    mv etherpad-lite-${ETHERPAD_VERSION} etherpad-lite
+
+# Install dependencies
+RUN /opt/etherpad-lite/bin/installDeps.sh
 
 # Add conf files
-ADD settings.json /opt/etherpad/settings.json
+ADD settings.json /opt/etherpad-lite/settings.json
 ADD supervisor.conf /etc/supervisor/supervisor.conf
+
+# Update admin password
+RUN sed -i "s/{{ADMIN_PASSWORD}}/${ADMIN_PASSWORD}/g" /opt/etherpad-lite/settings.json
 
 EXPOSE 9001
 CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf", "-n"]

@@ -8,7 +8,7 @@
 */
 {
   // Name your instance!
-  "title": "Etherpad",
+  "title": "Coredump Etherpad",
 
   // favicon default name
   // alternatively, set up a fully specified Url to your own favicon
@@ -18,39 +18,12 @@
   "ip": "0.0.0.0",
   "port" : 9001,
 
-  /*
-  // Node native SSL support
-  // this is disabled by default
-  //
-  // make sure to have the minimum and correct file access permissions set
-  // so that the Etherpad server can access them
-
-  "ssl" : {
-            "key"  : "/path-to-your/epl-server.key",
-            "cert" : "/path-to-your/epl-server.crt",
-            "ca": ["/path-to-your/epl-intermediate-cert1.crt", "/path-to-your/epl-intermediate-cert2.crt"]
-          },
-
-  */
-
   //The Type of the database. You can choose between dirty, postgres, sqlite and mysql
-  //You shouldn't use "dirty" for for anything else than testing or development
-  "dbType" : "dirty",
+  "dbType" : "sqlite",
   //the database specific settings
   "dbSettings" : {
-                   "filename" : "var/dirty.db"
+                   "filename" : "/opt/etherpad-lite-data/sqlite.db"
                  },
-
-  /* An Example of MySQL Configuration
-   "dbType" : "mysql",
-   "dbSettings" : {
-                    "user"    : "root",
-                    "host"    : "localhost",
-                    "password": "",
-                    "database": "store",
-                    "charset" : "utf8mb4"
-                  },
-  */
 
   //the default text of a pad
   "defaultPadText" : "Welcome to Etherpad!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\nGet involved with Etherpad at http:\/\/etherpad.org\n",
@@ -116,22 +89,16 @@
   "trustProxy" : false,
 
   /* Privacy: disable IP logging */
-  "disableIPlogging" : false,
+  "disableIPlogging" : true,
 
   /* Users for basic authentication. is_admin = true gives access to /admin.
      If you do not uncomment this, /admin will not be available! */
-  /*
   "users": {
     "admin": {
-      "password": "changeme1",
+      "password": "{{ ADMIN_PASSWORD }}",
       "is_admin": true
-    },
-    "user": {
-      "password": "changeme1",
-      "is_admin": false
     }
   },
-  */
 
   // restrict socket.io transport methods
   "socketTransportProtocols" : ["xhr-polling", "jsonp-polling", "htmlfile"],
