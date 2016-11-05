@@ -8,7 +8,7 @@
 */
 {
   // Name your instance!
-  "title": "Coredump Etherpad",
+  "title": "{{ETHERPAD_TITLE}}",
 
   // favicon default name
   // alternatively, set up a fully specified Url to your own favicon
@@ -17,6 +17,9 @@
   //IP and port which etherpad should bind at
   "ip": "0.0.0.0",
   "port" : 9001,
+
+  // Session key
+  "sessionKey": "{{ETHERPAD_SESSION_KEY}}",
 
   //The Type of the database. You can choose between dirty, postgres, sqlite and mysql
   "dbType" : "sqlite",
@@ -95,7 +98,7 @@
      If you do not uncomment this, /admin will not be available! */
   "users": {
     "admin": {
-      "password": "{{ ADMIN_PASSWORD }}",
+      "password": "{{ETHERPAD_ADMIN_PASS}}",
       "is_admin": true
     }
   },
