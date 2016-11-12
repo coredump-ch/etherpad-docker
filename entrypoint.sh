@@ -11,6 +11,6 @@ set -e
 sed -i "s/{{ETHERPAD_TITLE}}/${ETHERPAD_TITLE}/" settings.json
 sed -i "s/{{ETHERPAD_SESSION_KEY}}/${ETHERPAD_SESSION_KEY}/" settings.json
 sed -i "s/{{ETHERPAD_ADMIN_PASS}}/${ETHERPAD_ADMIN_PASS}/" settings.json
-sed -i "s/{{ETHERPAD_FOOTER}}/${ETHERPAD_FOOTER}/" settings.json
+sed -i "s/{{ETHERPAD_FOOTER}}/${ETHERPAD_FOOTER//\//\\/}/" settings.json
 
 exec "$@"
