@@ -21,3 +21,4 @@ Other config vars:
 
 - `ETHERPAD_TITLE`
 - `ETHERPAD_SESSION_KEY`
+- `ETHERPAD_FOOTER`
