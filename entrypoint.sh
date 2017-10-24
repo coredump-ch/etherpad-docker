@@ -8,7 +8,7 @@ set -e
 : ${ETHERPAD_ADMIN_PASS:=$(
 		node -p "require('crypto').randomBytes(16).toString('hex')")}
 : ${ETHERPAD_FOOTER:=""}
-: ${ETHERPAD_WELCOME_TEXT:=Welcome to Etherpad!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\nGet involved with Etherpad at http:\/\/etherpad.org\n}
+: ${ETHERPAD_WELCOME_TEXT:=Welcome to Etherpad!\\n\\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\\n\\nGet involved with Etherpad at http:\\/\\/etherpad.org\\n}
 sed -i "s/{{ETHERPAD_TITLE}}/${ETHERPAD_TITLE}/" settings.json
 sed -i "s/{{ETHERPAD_SESSION_KEY}}/${ETHERPAD_SESSION_KEY}/" settings.json
 sed -i "s/{{ETHERPAD_ADMIN_PASS}}/${ETHERPAD_ADMIN_PASS}/" settings.json
